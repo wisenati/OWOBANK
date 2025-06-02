@@ -1,7 +1,7 @@
 const CACHE_NAME = "owobank-v1";
 const ASSETS_TO_CACHE = [
   "/",
-  "/main.html",
+  "/index.html",
   "/auth.html",
   "/home.html",
   "/bills.html",
