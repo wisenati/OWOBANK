@@ -42,14 +42,14 @@
       "short_name": "Login",
       "description": "Login to your OwoBank account",
       "url": "/auth.html",
-      "icons": [{ "src": "icons/login.png", "sizes": "192x192" }]
+      "icons": [{ "src": "banklogo.png", "sizes": "192x192" }]
     },
     {
       "name": "Dashboard",
       "short_name": "Dashboard",
       "description": "View your account dashboard",
       "url": "/home.html",
-      "icons": [{ "src": "icons/dashboard.png", "sizes": "192x192" }]
+      "icons": [{ "src": "banklogo.png", "sizes": "192x192" }]
     }
   ],
   "related_applications": [
