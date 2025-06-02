@@ -1,0 +1,66 @@
+{
+  "name": "OwoBank",
+  "short_name": "OwoBank",
+  "description": "Digital Banking Redefined - Secure, fast and convenient banking services",
+  "start_url": "/main.html",
+  "display": "standalone",
+  "background_color": "#6c5ce7",
+  "theme_color": "#6c5ce7",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "banklogo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "banklogo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshot2.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["finance", "business", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Login to your OwoBank account",
+      "url": "/auth.html",
+      "icons": [{ "src": "icons/login.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your account dashboard",
+      "url": "/home.html",
+      "icons": [{ "src": "icons/dashboard.png", "sizes": "192x192" }]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://carrymealong.vercel.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://carrymealong.vercel.app"
+    }
+  ],
+  "prefer_related_applications": false
+}

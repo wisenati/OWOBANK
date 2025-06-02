@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - OwoBank</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-bottom: 70px;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      .back-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .back-icon:hover {
+        transform: scale(1.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        margin-left: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+      }
+
+      /* Main Content */
+      .main-content {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--primary-dark);
+        text-align: center;
+      }
+
+      .policy-section {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+
+      .section-content {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--text-light);
+      }
+
+      .section-content p {
+        margin-bottom: 15px;
+      }
+
+      .section-content ul {
+        margin-left: 20px;
+        margin-bottom: 15px;
+      }
+
+      .section-content li {
+        margin-bottom: 8px;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 12px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 90;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 10px;
+        transition: var(--transition);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+      }
+
+      .nav-active {
+        color: var(--primary);
+      }
+
+      .nav-active .nav-icon {
+        transform: scale(1.2);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .main-content {
+          padding: 15px;
+        }
+
+        .policy-section {
+          padding: 20px;
+        }
+
+        .page-title {
+          font-size: 24px;
+        }
+
+        .section-title {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-icon" id="backBtn">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="logo-container">
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <div style="width: 24px"></div>
+      <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1 class="page-title">Privacy Policy</h1>
+
+      <div class="policy-section">
+        <h2 class="section-title">1. Introduction</h2>
+        <div class="section-content">
+          <p>
+            Welcome to OwoBank. We are committed to protecting your privacy and
+            ensuring the security of your personal information. This Privacy
+            Policy explains how we collect, use, disclose, and safeguard your
+            information when you use our services.
+          </p>
+          <p>
+            By using our services, you agree to the collection and use of
+            information in accordance with this policy.
+          </p>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">2. Information We Collect</h2>
+        <div class="section-content">
+          <p>We may collect the following types of information:</p>
+          <ul>
+            <li>
+              <strong>Personal Information:</strong> Name, phone number, email
+              address, date of birth, government-issued ID, and other contact
+              details.
+            </li>
+            <li>
+              <strong>Financial Information:</strong> Bank account details,
+              transaction history, and payment information.
+            </li>
+            <li>
+              <strong>Device Information:</strong> IP address, browser type,
+              operating system, and device identifiers.
+            </li>
+            <li>
+              <strong>Usage Data:</strong> Information about how you interact
+              with our services.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">3. How We Use Your Information</h2>
+        <div class="section-content">
+          <p>We use the collected information for various purposes:</p>
+          <ul>
+            <li>To provide and maintain our services</li>
+            <li>To process transactions and send transaction notifications</li>
+            <li>To verify your identity and prevent fraud</li>
+            <li>To improve our services and develop new features</li>
+            <li>To communicate with you about your account and our services</li>
+            <li>To comply with legal obligations</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">4. Data Security</h2>
+        <div class="section-content">
+          <p>
+            We implement appropriate technical and organizational measures to
+            protect your personal information:
+          </p>
+          <ul>
+            <li>Encryption of sensitive data in transit and at rest</li>
+            <li>Regular security audits and testing</li>
+            <li>Access controls to limit who can access your information</li>
+            <li>Employee training on data protection</li>
+          </ul>
+          <p>
+            However, no method of transmission over the Internet or electronic
+            storage is 100% secure, and we cannot guarantee absolute security.
+          </p>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">5. Data Sharing and Disclosure</h2>
+        <div class="section-content">
+          <p>We may share your information with:</p>
+          <ul>
+            <li>
+              Service providers who assist in operating our services (e.g.,
+              payment processors)
+            </li>
+            <li>Regulatory authorities when required by law</li>
+            <li>Business partners in connection with services they provide</li>
+            <li>Other parties with your consent</li>
+          </ul>
+          <p>We do not sell your personal information to third parties.</p>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">6. Your Rights</h2>
+        <div class="section-content">
+          <p>You have certain rights regarding your personal information:</p>
+          <ul>
+            <li>
+              <strong>Access:</strong> You can request a copy of your personal
+              data.
+            </li>
+            <li>
+              <strong>Correction:</strong> You can update or correct inaccurate
+              information.
+            </li>
+            <li>
+              <strong>Deletion:</strong> You can request deletion of your
+              personal data, subject to legal requirements.
+            </li>
+            <li>
+              <strong>Objection:</strong> You can object to certain processing
+              activities.
+            </li>
+            <li>
+              <strong>Withdraw Consent:</strong> Where we rely on consent, you
+              can withdraw it at any time.
+            </li>
+          </ul>
+          <p>
+            To exercise these rights, please contact us through our customer
+            support channels.
+          </p>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">7. Changes to This Policy</h2>
+        <div class="section-content">
+          <p>
+            We may update our Privacy Policy from time to time. We will notify
+            you of any changes by posting the new policy on this page and
+            updating the "effective date" at the bottom of this policy.
+          </p>
+          <p>
+            You are advised to review this Privacy Policy periodically for any
+            changes.
+          </p>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="section-title">8. Contact Us</h2>
+        <div class="section-content">
+          <p>
+            If you have any questions about this Privacy Policy, please contact
+            us:
+          </p>
+          <ul>
+            <li>By email: privacy@owobank.com</li>
+            <li>By phone: 0800-OWOBANK</li>
+            <li>Through the app: Settings > Help & Support</li>
+          </ul>
+          <p><strong>Effective Date:</strong> June 3, 2025</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div>Home</div>
+      </a>
+      <a href="transfer.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-paper-plane"></i></div>
+        <div>Transfer</div>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-cog"></i></div>
+        <div>Settings</div>
+      </a>
+    </div>
+
+    <script>
+      // Back button functionality
+      document.getElementById("backBtn").addEventListener("click", () => {
+        window.history.back();
+      });
+    </script>
+  </body>
+</html>

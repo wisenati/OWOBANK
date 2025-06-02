@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - OwoBank</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #d63031;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-bottom: 70px;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      .back-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .back-icon:hover {
+        transform: scale(1.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        margin-left: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+      }
+
+      .profile {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--primary-light)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Page Title */
+      .page-title {
+        padding: 20px;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+      }
+
+      .page-title i {
+        margin-right: 15px;
+        color: var(--primary);
+      }
+
+      /* Settings Sections */
+      .settings-section {
+        background: white;
+        border-radius: 15px;
+        margin: 15px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .section-header {
+        padding: 15px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+      }
+
+      .section-header i {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      .settings-list {
+        list-style: none;
+      }
+
+      .settings-item {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .settings-item:last-child {
+        border-bottom: none;
+      }
+
+      .settings-item:hover {
+        background: rgba(108, 92, 231, 0.05);
+      }
+
+      .settings-item .left {
+        display: flex;
+        align-items: center;
+      }
+
+      .settings-item .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(108, 92, 231, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--primary);
+        font-size: 16px;
+      }
+
+      .settings-item .title {
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      .settings-item .subtitle {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-top: 3px;
+      }
+
+      .settings-item .right {
+        display: flex;
+        align-items: center;
+      }
+
+      .settings-item .right i {
+        color: var(--text-light);
+        font-size: 14px;
+      }
+
+      .settings-item .toggle {
+        position: relative;
+        width: 50px;
+        height: 26px;
+        border-radius: 15px;
+        background: #dfe6e9;
+        margin-left: 15px;
+        transition: var(--transition);
+      }
+
+      .settings-item .toggle.active {
+        background: var(--primary);
+      }
+
+      .settings-item .toggle-knob {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        transition: var(--transition);
+      }
+
+      .settings-item .toggle.active .toggle-knob {
+        left: 27px;
+      }
+
+      /* Profile Picture Section */
+      .profile-pic-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 25px 20px;
+        background: white;
+        border-radius: 15px;
+        margin: 15px;
+        box-shadow: var(--shadow);
+      }
+
+      .profile-pic-container {
+        position: relative;
+        margin-bottom: 15px;
+      }
+
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary-light);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .change-pic-btn {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .change-pic-btn:hover {
+        background: var(--primary-dark);
+        transform: scale(1.1);
+      }
+
+      .profile-name {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .profile-phone {
+        font-size: 14px;
+        color: var(--text-light);
+      }
+
+      /* Danger Zone */
+      .danger-zone {
+        background: white;
+        border-radius: 15px;
+        margin: 15px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .danger-header {
+        padding: 15px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--danger);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+      }
+
+      .danger-header i {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      .danger-item {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .danger-item:last-child {
+        border-bottom: none;
+      }
+
+      .danger-item:hover {
+        background: rgba(214, 48, 49, 0.05);
+      }
+
+      .danger-item .left {
+        display: flex;
+        align-items: center;
+      }
+
+      .danger-item .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(214, 48, 49, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--danger);
+        font-size: 16px;
+      }
+
+      .danger-item .title {
+        font-weight: 500;
+        font-size: 15px;
+        color: var(--danger);
+      }
+
+      .danger-item .subtitle {
+        font-size: 13px;
+        color: var(--danger);
+        opacity: 0.7;
+        margin-top: 3px;
+      }
+
+      .danger-item .right i {
+        color: var(--danger);
+        opacity: 0.7;
+        font-size: 14px;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 12px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 90;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 10px;
+        transition: var(--transition);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+      }
+
+      .nav-active {
+        color: var(--primary);
+      }
+
+      .nav-active .nav-icon {
+        transform: scale(1.2);
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background-color: white;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        padding: 25px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        transform: translateY(30px);
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active .modal {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .modal-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .modal-close {
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .modal-close:hover {
+        color: var(--primary);
+        transform: rotate(90deg);
+      }
+
+      .modal-body {
+        margin-bottom: 25px;
+      }
+
+      .modal-message {
+        font-size: 15px;
+        color: var(--text-light);
+        line-height: 1.5;
+      }
+
+      .modal-form {
+        margin-top: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-light);
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1px solid #dfe6e9;
+        font-size: 15px;
+        transition: var(--transition);
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .modal-button {
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .modal-button.primary {
+        background: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .modal-button.primary:hover {
+        background: var(--primary-dark);
+      }
+
+      .modal-button.secondary {
+        background: white;
+        color: var(--primary);
+        border: 1px solid #dfe6e9;
+      }
+
+      .modal-button.secondary:hover {
+        background: #f5f6fa;
+      }
+
+      .modal-button.danger {
+        background: var(--danger);
+        color: white;
+        border: none;
+      }
+
+      .modal-button.danger:hover {
+        background: #c0392b;
+      }
+
+      /* File Input */
+      .file-input {
+        display: none;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 480px) {
+        .page-title {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-icon" id="backBtn">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="logo-container">
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <div class="profile" id="profileInitial">D</div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <i class="fas fa-cog"></i>
+      <div>Settings</div>
+    </div>
+
+    <!-- Profile Picture Section -->
+    <div class="profile-pic-section">
+      <div class="profile-pic-container">
+        <img src="" alt="Profile Picture" class="profile-pic" id="profilePic" />
+        <div class="change-pic-btn" id="changePicBtn">
+          <i class="fas fa-camera"></i>
+          <input
+            type="file"
+            id="profilePicInput"
+            class="file-input"
+            accept="image/*"
+          />
+        </div>
+      </div>
+      <div class="profile-name" id="profileName">Davio White</div>
+      <div class="profile-phone" id="profilePhone">08012345678</div>
+    </div>
+
+    <!-- Account Settings -->
+    <div class="settings-section">
+      <div class="section-header">
+        <i class="fas fa-user"></i>
+        <div>Account Settings</div>
+      </div>
+      <ul class="settings-list">
+        <li class="settings-item" id="editProfileBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-user-edit"></i>
+            </div>
+            <div>
+              <div class="title">Edit Profile</div>
+              <div class="subtitle">Update your personal information</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+        <li class="settings-item" id="changePasswordBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div>
+              <div class="title">Change Password</div>
+              <div class="subtitle">Update your login password</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+        <li class="settings-item" id="notificationSettingsBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-bell"></i>
+            </div>
+            <div>
+              <div class="title">Notifications</div>
+              <div class="subtitle">Manage your notifications</div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="toggle" id="notificationToggle">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Security Settings -->
+    <div class="settings-section">
+      <div class="section-header">
+        <i class="fas fa-shield-alt"></i>
+        <div>Security</div>
+      </div>
+      <ul class="settings-list">
+        <li class="settings-item" id="twoFactorBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <div>
+              <div class="title">Two-Factor Authentication</div>
+              <div class="subtitle">Add an extra layer of security</div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="toggle" id="twoFactorToggle">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        </li>
+        <li class="settings-item" id="biometricBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-fingerprint"></i>
+            </div>
+            <div>
+              <div class="title">Biometric Login</div>
+              <div class="subtitle">Enable fingerprint or face ID</div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="toggle" id="biometricToggle">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        </li>
+        <li class="settings-item" id="loginHistoryBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-history"></i>
+            </div>
+            <div>
+              <div class="title">Login History</div>
+              <div class="subtitle">View your recent login activity</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- App Settings -->
+    <div class="settings-section">
+      <div class="section-header">
+        <i class="fas fa-mobile"></i>
+        <div>App Settings</div>
+      </div>
+      <ul class="settings-list">
+        <li class="settings-item" id="themeBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <div>
+              <div class="title">Theme</div>
+              <div class="subtitle">Change app appearance</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+        <li class="settings-item" id="languageBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-language"></i>
+            </div>
+            <div>
+              <div class="title">Language</div>
+              <div class="subtitle">English (Default)</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+        <li class="settings-item" id="currencyBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <div>
+              <div class="title">Currency</div>
+              <div class="subtitle">Naira (₦)</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="danger-zone">
+      <div class="danger-header">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>Danger Zone</div>
+      </div>
+      <ul class="settings-list">
+        <li class="danger-item" id="deleteAccountBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-trash"></i>
+            </div>
+            <div>
+              <div class="title">Delete Account</div>
+              <div class="subtitle">Permanently delete your account</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+        <li class="danger-item" id="logoutBtn">
+          <div class="left">
+            <div class="icon">
+              <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <div>
+              <div class="title">Logout</div>
+              <div class="subtitle">Sign out of your account</div>
+            </div>
+          </div>
+          <div class="right">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div>Home</div>
+      </a>
+      <!-- <a href="market.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div>Market</div>
+      </a>
+      <a href="#" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-concierge-bell"></i></div>
+        <div>Services</div>
+      </a> -->
+      <a href="settings.html" class="nav-item nav-active">
+        <div class="nav-icon"><i class="fas fa-cog"></i></div>
+        <div>Settings</div>
+      </a>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="editProfileModal">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">Edit Profile</div>
+          <div class="modal-close">&times;</div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-message">
+            Update your personal information below.
+          </div>
+          <div class="modal-form">
+            <div class="form-group">
+              <label class="form-label" for="editFullName">Full Name</label>
+              <input
+                type="text"
+                class="form-input"
+                id="editFullName"
+                placeholder="Enter your full name"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="editPhone">Phone Number</label>
+              <input
+                type="tel"
+                class="form-input"
+                id="editPhone"
+                placeholder="Enter your phone number"
+                maxlength="11"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-button secondary" id="cancelEditBtn">
+            Cancel
+          </button>
+          <button class="modal-button primary" id="saveProfileBtn">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal-overlay" id="changePasswordModal">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">Change Password</div>
+          <div class="modal-close">&times;</div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-message">
+            For security reasons, please enter your current password before
+            setting a new one.
+          </div>
+          <div class="modal-form">
+            <div class="form-group">
+              <label class="form-label" for="currentPassword"
+                >Current Password</label
+              >
+              <input
+                type="password"
+                class="form-input"
+                id="currentPassword"
+                placeholder="Enter current password"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="newPassword">New Password</label>
+              <input
+                type="password"
+                class="form-input"
+                id="newPassword"
+                placeholder="Enter new password"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="confirmPassword"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                class="form-input"
+                id="confirmPassword"
+                placeholder="Confirm new password"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-button secondary" id="cancelPasswordBtn">
+            Cancel
+          </button>
+          <button class="modal-button primary" id="savePasswordBtn">
+            Change Password
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal-overlay" id="deleteAccountModal">
+      <div class="modal">
+        <div class="modal-header">
+          <div class="modal-title">Delete Account</div>
+          <div class="modal-close">&times;</div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-message">
+            Are you sure you want to delete your account? This action cannot be
+            undone. All your data will be permanently removed from our systems.
+          </div>
+          <div class="modal-form">
+            <div class="form-group">
+              <label class="form-label" for="deletePassword"
+                >Enter Password to Confirm</label
+              >
+              <input
+                type="password"
+                class="form-input"
+                id="deletePassword"
+                placeholder="Enter your password"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-button secondary" id="cancelDeleteBtn">
+            Cancel
+          </button>
+          <button class="modal-button danger" id="confirmDeleteBtn">
+            Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // DOM Elements
+      const backBtn = document.getElementById("backBtn");
+      const profileInitial = document.getElementById("profileInitial");
+      const profilePic = document.getElementById("profilePic");
+      const profileName = document.getElementById("profileName");
+      const profilePhone = document.getElementById("profilePhone");
+      const changePicBtn = document.getElementById("changePicBtn");
+      const profilePicInput = document.getElementById("profilePicInput");
+      const editProfileBtn = document.getElementById("editProfileBtn");
+      const changePasswordBtn = document.getElementById("changePasswordBtn");
+      const notificationToggle = document.getElementById("notificationToggle");
+      const twoFactorToggle = document.getElementById("twoFactorToggle");
+      const biometricToggle = document.getElementById("biometricToggle");
+      const deleteAccountBtn = document.getElementById("deleteAccountBtn");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      // Modal Elements
+      const editProfileModal = document.getElementById("editProfileModal");
+      const changePasswordModal = document.getElementById(
+        "changePasswordModal"
+      );
+      const deleteAccountModal = document.getElementById("deleteAccountModal");
+      const modalCloseButtons = document.querySelectorAll(".modal-close");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+      const saveProfileBtn = document.getElementById("saveProfileBtn");
+      const cancelPasswordBtn = document.getElementById("cancelPasswordBtn");
+      const savePasswordBtn = document.getElementById("savePasswordBtn");
+      const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+      const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+      // Form Elements
+      const editFullName = document.getElementById("editFullName");
+      const editPhone = document.getElementById("editPhone");
+      const currentPassword = document.getElementById("currentPassword");
+      const newPassword = document.getElementById("newPassword");
+      const confirmPassword = document.getElementById("confirmPassword");
+      const deletePassword = document.getElementById("deletePassword");
+
+      // User data
+      let currentUser =
+        JSON.parse(localStorage.getItem("owobank_current_user")) || {};
+      let users = JSON.parse(localStorage.getItem("owobank_users")) || {};
+
+      // Initialize the page
+      function init() {
+        // Update user data from storage
+        if (currentUser.phone) {
+          currentUser = users[currentUser.phone] || currentUser;
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(currentUser)
+          );
+        } else {
+          // If no user is logged in, redirect to auth page
+          window.location.href = "auth.html";
+          return;
+        }
+
+        // Set profile data
+        const initials = currentUser.fullName
+          ? currentUser.fullName
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+          : "U";
+        profileInitial.textContent = initials.charAt(0);
+
+        // Set profile picture if available
+        if (currentUser.profilePic) {
+          profilePic.src = currentUser.profilePic;
+        } else {
+          // Create a default profile picture with initials
+          const canvas = document.createElement("canvas");
+          canvas.width = 100;
+          canvas.height = 100;
+          const ctx = canvas.getContext("2d");
+
+          // Background color based on initials
+          const colors = [
+            "#6c5ce7",
+            "#00cec9",
+            "#fd79a8",
+            "#00b894",
+            "#fdcb6e",
+          ];
+          const colorIndex = initials.charCodeAt(0) % colors.length;
+          ctx.fillStyle = colors[colorIndex];
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Add initials text
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "40px Poppins";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(initials.charAt(0), 50, 50);
+
+          profilePic.src = canvas.toDataURL();
+        }
+
+        profileName.textContent = currentUser.fullName || "User";
+        profilePhone.textContent = currentUser.phone || "N/A";
+
+        // Set toggle states from user preferences
+        if (currentUser.settings) {
+          if (currentUser.settings.notifications) {
+            notificationToggle.classList.add("active");
+          }
+          if (currentUser.settings.twoFactor) {
+            twoFactorToggle.classList.add("active");
+          }
+          if (currentUser.settings.biometric) {
+            biometricToggle.classList.add("active");
+          }
+        } else {
+          // Initialize settings if they don't exist
+          currentUser.settings = {
+            notifications: true,
+            twoFactor: false,
+            biometric: false,
+          };
+          users[currentUser.phone] = currentUser;
+          localStorage.setItem("owobank_users", JSON.stringify(users));
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(currentUser)
+          );
+        }
+
+        // Event listeners
+        backBtn.addEventListener("click", () => {
+          window.location.href = "home.html";
+        });
+
+        // Profile picture change
+        changePicBtn.addEventListener("click", () => {
+          profilePicInput.click();
+        });
+
+        profilePicInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              profilePic.src = event.target.result;
+              // Save to user data
+              currentUser.profilePic = event.target.result;
+              users[currentUser.phone] = currentUser;
+              localStorage.setItem("owobank_users", JSON.stringify(users));
+              localStorage.setItem(
+                "owobank_current_user",
+                JSON.stringify(currentUser)
+              );
+              showToast("Profile picture updated successfully");
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        // Edit profile
+        editProfileBtn.addEventListener("click", () => {
+          editFullName.value = currentUser.fullName || "";
+          editPhone.value = currentUser.phone || "";
+          editProfileModal.classList.add("active");
+        });
+
+        // Change password
+        changePasswordBtn.addEventListener("click", () => {
+          currentPassword.value = "";
+          newPassword.value = "";
+          confirmPassword.value = "";
+          changePasswordModal.classList.add("active");
+        });
+
+        // Toggle switches
+        notificationToggle.addEventListener("click", () => {
+          notificationToggle.classList.toggle("active");
+          currentUser.settings.notifications =
+            notificationToggle.classList.contains("active");
+          saveUserSettings();
+        });
+
+        twoFactorToggle.addEventListener("click", () => {
+          twoFactorToggle.classList.toggle("active");
+          currentUser.settings.twoFactor =
+            twoFactorToggle.classList.contains("active");
+          saveUserSettings();
+        });
+
+        biometricToggle.addEventListener("click", () => {
+          biometricToggle.classList.toggle("active");
+          currentUser.settings.biometric =
+            biometricToggle.classList.contains("active");
+          saveUserSettings();
+        });
+
+        // Delete account
+        deleteAccountBtn.addEventListener("click", () => {
+          deletePassword.value = "";
+          deleteAccountModal.classList.add("active");
+        });
+
+        // Logout
+        logoutBtn.addEventListener("click", () => {
+          localStorage.removeItem("owobank_current_user");
+          window.location.href = "auth.html";
+        });
+
+        // Modal close buttons
+        modalCloseButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document
+              .querySelector(".modal-overlay.active")
+              .classList.remove("active");
+          });
+        });
+
+        // Cancel buttons
+        cancelEditBtn.addEventListener("click", () => {
+          editProfileModal.classList.remove("active");
+        });
+
+        cancelPasswordBtn.addEventListener("click", () => {
+          changePasswordModal.classList.remove("active");
+        });
+
+        cancelDeleteBtn.addEventListener("click", () => {
+          deleteAccountModal.classList.remove("active");
+        });
+
+        // Save profile
+        saveProfileBtn.addEventListener("click", () => {
+          const newFullName = editFullName.value.trim();
+          const newPhone = editPhone.value.trim();
+
+          if (!newFullName) {
+            showToast("Full name cannot be empty");
+            return;
+          }
+
+          if (!newPhone || !/^080\d{8}$/.test(newPhone)) {
+            showToast("Please enter a valid phone number starting with 080");
+            return;
+          }
+
+          // Update user data
+          currentUser.fullName = newFullName;
+          currentUser.phone = newPhone;
+
+          // Update in users object
+          users[currentUser.phone] = currentUser;
+
+          // Save to local storage
+          localStorage.setItem("owobank_users", JSON.stringify(users));
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(currentUser)
+          );
+
+          // Update UI
+          profileName.textContent = newFullName;
+          profilePhone.textContent = newPhone;
+          const initials = newFullName
+            .split(" ")
+            .map((n) => n[0])
+            .join("");
+          profileInitial.textContent = initials.charAt(0);
+
+          showToast("Profile updated successfully");
+          editProfileModal.classList.remove("active");
+        });
+
+        // Change password
+        savePasswordBtn.addEventListener("click", () => {
+          const currentPass = currentPassword.value;
+          const newPass = newPassword.value;
+          const confirmPass = confirmPassword.value;
+
+          if (!currentPass) {
+            showToast("Please enter your current password");
+            return;
+          }
+
+          if (currentPass !== currentUser.password) {
+            showToast("Current password is incorrect");
+            return;
+          }
+
+          if (!newPass || newPass.length < 6) {
+            showToast("New password must be at least 6 characters");
+            return;
+          }
+
+          if (newPass !== confirmPass) {
+            showToast("Passwords do not match");
+            return;
+          }
+
+          // Update password
+          currentUser.password = newPass;
+          users[currentUser.phone] = currentUser;
+
+          // Save to local storage
+          localStorage.setItem("owobank_users", JSON.stringify(users));
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(currentUser)
+          );
+
+          showToast("Password changed successfully");
+          changePasswordModal.classList.remove("active");
+        });
+
+        // Delete account
+        confirmDeleteBtn.addEventListener("click", () => {
+          const password = deletePassword.value;
+
+          if (!password) {
+            showToast("Please enter your password");
+            return;
+          }
+
+          if (password !== currentUser.password) {
+            showToast("Incorrect password");
+            return;
+          }
+
+          // Delete user account
+          delete users[currentUser.phone];
+          localStorage.setItem("owobank_users", JSON.stringify(users));
+          localStorage.removeItem("owobank_current_user");
+
+          showToast("Account deleted successfully");
+          setTimeout(() => {
+            window.location.href = "auth.html";
+          }, 1500);
+        });
+      }
+
+      // Helper function to save user settings
+      function saveUserSettings() {
+        users[currentUser.phone] = currentUser;
+        localStorage.setItem("owobank_users", JSON.stringify(users));
+        localStorage.setItem(
+          "owobank_current_user",
+          JSON.stringify(currentUser)
+        );
+      }
+
+      // Helper function to show toast messages
+      function showToast(message) {
+        const toast = document.createElement("div");
+        toast.className = "toast-message";
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.add("show");
+        }, 10);
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 3000);
+      }
+
+      // Initialize the page
+      init();
+
+      // Add toast styles dynamically
+      const style = document.createElement("style");
+      style.textContent = `
+        .toast-message {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #333;
+          color: white;
+          padding: 12px 24px;
+          border-radius: 4px;
+          z-index: 1000;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .toast-message.show {
+          opacity: 1;
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

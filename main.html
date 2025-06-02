@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6c5ce7" />
+    <meta
+      name="description"
+      content="OwoBank - Digital Banking Redefined. Secure, fast and convenient banking services"
+    />
+    <title>OwoBank - Digital Banking Redefined</title>
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --white: #ffffff;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #d63031;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --gradient: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* Header Styles */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: var(--gradient);
+        color: var(--white);
+        z-index: 100;
+        box-shadow: var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: var(--transition);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        background: linear-gradient(
+          to right,
+          var(--white),
+          var(--primary-light)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        animation: glow 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        to {
+          text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(168, 255, 252, 0.4);
+        }
+      }
+
+      .cta-button {
+        padding: 10px 20px;
+        border-radius: 30px;
+        background: var(--white);
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .cta-button i {
+        margin-left: 8px;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 100px 20px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient);
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+        z-index: -1;
+      }
+
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .hero-text {
+        color: var(--white);
+      }
+
+      .hero-title {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 30px;
+        opacity: 0.9;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .primary-button {
+        background: var(--white);
+        color: var(--primary);
+      }
+
+      .secondary-button {
+        background: transparent;
+        color: var(--white);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .secondary-button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .hero-image {
+        position: relative;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .hero-image img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Features Section */
+      .features {
+        padding: 100px 20px;
+        background: var(--white);
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+
+      .section-title p {
+        font-size: 18px;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .feature-card {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(108, 92, 231, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 32px;
+        color: var(--primary);
+      }
+
+      .feature-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--dark);
+      }
+
+      .feature-description {
+        font-size: 16px;
+        color: var(--text-light);
+      }
+
+      /* How It Works Section */
+      .how-it-works {
+        padding: 100px 20px;
+        background: var(--light);
+      }
+
+      .steps {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .step {
+        display: flex;
+        margin-bottom: 50px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--gradient);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-right: 30px;
+        box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+      }
+
+      .step-content {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        flex-grow: 1;
+      }
+
+      .step-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--primary);
+      }
+
+      .step-description {
+        font-size: 16px;
+        color: var(--text-light);
+      }
+
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 30px;
+        height: 100%;
+        width: 4px;
+        background: var(--primary-light);
+        z-index: -1;
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        padding: 100px 20px;
+        background: var(--white);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .testimonial-card {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .testimonial-text {
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 25px;
+        font-style: italic;
+        position: relative;
+      }
+
+      .testimonial-text::before {
+        content: '"';
+        font-size: 60px;
+        color: var(--primary-light);
+        position: absolute;
+        top: -20px;
+        left: -15px;
+        opacity: 0.3;
+        font-family: serif;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--primary-light);
+        margin-right: 15px;
+        overflow: hidden;
+      }
+
+      .author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 5px;
+      }
+
+      .author-info p {
+        font-size: 14px;
+        color: var(--text-light);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        padding: 100px 20px;
+        background: var(--gradient);
+        text-align: center;
+        color: var(--white);
+      }
+
+      .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .cta-title {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .cta-description {
+        font-size: 18px;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--dark);
+        color: var(--white);
+        padding: 60px 20px 30px;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .footer-logo-img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+
+      .footer-logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        background: linear-gradient(
+          to right,
+          var(--white),
+          var(--primary-light)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .footer-description {
+        font-size: 14px;
+        opacity: 0.7;
+        margin-bottom: 20px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-link:hover {
+        background: var(--primary);
+        transform: translateY(-3px);
+      }
+
+      .footer-links h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--white);
+      }
+
+      .footer-links ul {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 14px;
+      }
+
+      .footer-links a:hover {
+        color: var(--white);
+        padding-left: 5px;
+      }
+
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 50px auto 0;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        opacity: 0.7;
+      }
+
+      /* Install Button */
+      .install-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--gradient);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        box-shadow: 0 10px 30px rgba(108, 92, 231, 0.5);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        z-index: 99;
+        transition: var(--transition);
+        transform: translateY(100px);
+        opacity: 0;
+      }
+
+      .install-button.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .install-button i {
+        margin-right: 8px;
+      }
+
+      /* Animations */
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .hero-image {
+          margin-top: 50px;
+        }
+
+        .hero-title {
+          font-size: 40px;
+        }
+
+        .hero-subtitle {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 32px;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .section-title h2 {
+          font-size: 28px;
+        }
+
+        .section-title p {
+          font-size: 16px;
+        }
+
+        .step {
+          flex-direction: column;
+        }
+
+        .step-number {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+
+        .steps::before {
+          left: 30px;
+          top: 60px;
+          height: calc(100% - 60px);
+        }
+
+        .cta-title {
+          font-size: 28px;
+        }
+
+        .cta-description {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 28px;
+        }
+
+        .hero-subtitle {
+          font-size: 16px;
+        }
+
+        .feature-card {
+          padding: 20px;
+        }
+
+        .step-content {
+          padding: 20px;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+          gap: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <img src="banklogo.png" alt="OwoBank Logo" class="logo-img" />
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <a href="auth.html" class="cta-button"
+        >Get Started <i class="fas fa-arrow-right"></i
+      ></a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">Digital Banking Redefined</h1>
+          <p class="hero-subtitle">
+            Experience seamless, secure and convenient banking with OwoBank.
+            Manage your finances anytime, anywhere.
+          </p>
+          <div class="hero-buttons">
+            <a href="auth.html" class="cta-button primary-button"
+              >Open Account</a
+            >
+            <a href="#features" class="cta-button secondary-button"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="hero-image">
+          <img
+            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+            alt="Mobile Banking App"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="section-title">
+        <h2>Why Choose OwoBank?</h2>
+        <p>
+          We're revolutionizing digital banking with innovative features
+          designed for your convenience
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3 class="feature-title">Lightning Fast</h3>
+          <p class="feature-description">
+            Instant transfers and transactions with our cutting-edge technology.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="feature-title">Bank-Level Security</h3>
+          <p class="feature-description">
+            Your money is protected with military-grade encryption and 2FA.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3 class="feature-title">No Hidden Fees</h3>
+          <p class="feature-description">
+            Enjoy transparent pricing with no surprise charges.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3 class="feature-title">24/7 Support</h3>
+          <p class="feature-description">
+            Our customer service team is always ready to assist you.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3 class="feature-title">Rewards Program</h3>
+          <p class="feature-description">
+            Earn cashback and rewards on your transactions.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="feature-title">Mobile First</h3>
+          <p class="feature-description">
+            Designed for your smartphone with an intuitive interface.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+      <div class="section-title">
+        <h2>How It Works</h2>
+        <p>Get started with OwoBank in just a few simple steps</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Create Your Account</h3>
+            <p class="step-description">
+              Download the app or sign up on our website with your basic
+              information.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">Verify Your Identity</h3>
+            <p class="step-description">
+              Complete our quick verification process to secure your account.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3 class="step-title">Fund Your Account</h3>
+            <p class="step-description">
+              Add money to your account via bank transfer or card payment.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3 class="step-title">Start Banking</h3>
+            <p class="step-description">
+              Enjoy all our banking services right at your fingertips!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="section-title">
+        <h2>What Our Customers Say</h2>
+        <p>
+          Join thousands of satisfied customers who trust OwoBank with their
+          finances
+        </p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            OwoBank has completely transformed how I manage my money. The app is
+            so intuitive and the customer service is exceptional.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img
+                src="https://randomuser.me/api/portraits/women/44.jpg"
+                alt="Sarah Johnson"
+              />
+            </div>
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>Small Business Owner</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            I've tried many banking apps, but OwoBank stands out with its speed
+            and reliability. The rewards program is a game-changer!
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="Michael Chen"
+              />
+            </div>
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p>Freelance Designer</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            As someone who travels frequently, having a reliable digital bank is
+            crucial. OwoBank works perfectly everywhere I go.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <img
+                src="https://randomuser.me/api/portraits/women/68.jpg"
+                alt="Amina Diallo"
+              />
+            </div>
+            <div class="author-info">
+              <h4>Amina Diallo</h4>
+              <p>International Consultant</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Experience the Future of Banking?</h2>
+        <p class="cta-description">
+          Join OwoBank today and take control of your finances with our
+          innovative digital banking platform.
+        </p>
+        <a href="auth.html" class="cta-button primary-button"
+          >Get Started Now <i class="fas fa-arrow-right"></i
+        ></a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <img
+              src="banklogo.png"
+              alt="OwoBank Logo"
+              class="footer-logo-img"
+            />
+            <div class="footer-logo-text">OwoBank</div>
+          </div>
+          <p class="footer-description">
+            OwoBank is a digital banking platform that provides secure, fast and
+            convenient financial services to individuals and businesses.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+        <!-- <div class="footer-links">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div> -->
+        <!-- <div class="footer-links">
+          <h3>Products</h3>
+          <ul>
+            <li><a href="#">Personal Banking</a></li>
+            <li><a href="#">Business Banking</a></li>
+            <li><a href="#">Loans</a></li>
+            <li><a href="#">Investments</a></li>
+          </ul>
+        </div> -->
+        <!-- <div class="footer-links">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div> -->
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 OwoBank. All rights reserved.</p>
+        <div>
+          <a
+            href="privacy-policy.html"
+            style="color: rgba(255, 255, 255, 0.7); margin-left: 15px"
+            >Privacy Policy</a
+          >
+          <a
+            href="t&c.html"
+            style="color: rgba(255, 255, 255, 0.7); margin-left: 15px"
+            >Terms of Service</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Install Button -->
+    <div class="install-button" id="installButton">
+      <i class="fas fa-download"></i> Install App
+    </div>
+
+    <script>
+      // Install PWA functionality
+      let deferredPrompt;
+      const installButton = document.getElementById("installButton");
+
+      window.addEventListener("beforeinstallprompt", (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        // Show the install button
+        installButton.classList.add("show");
+      });
+
+      installButton.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
+
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        // Optionally, send analytics event with outcome of user choice
+        console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+        // Hide the install button
+        installButton.classList.remove("show");
+      });
+
+      window.addEventListener("appinstalled", () => {
+        // Hide the install button
+        installButton.classList.remove("show");
+        // Clear the deferredPrompt so it can be garbage collected
+        deferredPrompt = null;
+        // Optionally, send analytics event to indicate successful install
+        console.log("PWA was installed");
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Header scroll effect
+      const header = document.querySelector(".header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          header.style.boxShadow = "0 5px 20px rgba(0, 0, 0, 0.1)";
+        } else {
+          header.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.1)";
+        }
+      });
+
+      // Check if page is loaded as PWA
+      window.addEventListener("load", () => {
+        if (window.matchMedia("(display-mode: standalone)").matches) {
+          console.log("Running as PWA");
+          // You can add PWA-specific logic here
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service - OwoBank</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-bottom: 70px;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      .back-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .back-icon:hover {
+        transform: scale(1.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        margin-left: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+      }
+
+      /* Main Content */
+      .main-content {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--primary-dark);
+        text-align: center;
+      }
+
+      .terms-section {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 15px;
+      }
+
+      .section-content {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--text-light);
+      }
+
+      .section-content p {
+        margin-bottom: 15px;
+      }
+
+      .section-content ul {
+        margin-left: 20px;
+        margin-bottom: 15px;
+      }
+
+      .section-content li {
+        margin-bottom: 8px;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 12px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 90;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 10px;
+        transition: var(--transition);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+      }
+
+      .nav-active {
+        color: var(--primary);
+      }
+
+      .nav-active .nav-icon {
+        transform: scale(1.2);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .main-content {
+          padding: 15px;
+        }
+
+        .terms-section {
+          padding: 20px;
+        }
+
+        .page-title {
+          font-size: 24px;
+        }
+
+        .section-title {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-icon" id="backBtn">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="logo-container">
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <div style="width: 24px"></div>
+      <!-- Spacer for alignment -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1 class="page-title">Terms of Service</h1>
+
+      <div class="terms-section">
+        <h2 class="section-title">1. Acceptance of Terms</h2>
+        <div class="section-content">
+          <p>
+            By accessing or using the OwoBank mobile application and services
+            ("Service"), you agree to be bound by these Terms of Service
+            ("Terms"). If you do not agree to these Terms, please do not use our
+            Service.
+          </p>
+          <p>
+            We reserve the right to modify these Terms at any time. Your
+            continued use of the Service after such modifications constitutes
+            your acceptance of the revised Terms.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">2. Description of Service</h2>
+        <div class="section-content">
+          <p>
+            OwoBank provides digital banking services including but not limited
+            to:
+          </p>
+          <ul>
+            <li>Money transfers and payments</li>
+            <li>Account management</li>
+            <li>Financial transactions</li>
+            <li>Other banking-related services</li>
+          </ul>
+          <p>
+            All services are subject to these Terms and any additional terms
+            that may apply to specific services.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">3. Account Registration</h2>
+        <div class="section-content">
+          <p>
+            To use our Service, you must register for an account by providing
+            accurate and complete information. You agree to:
+          </p>
+          <ul>
+            <li>Provide true, accurate, current, and complete information</li>
+            <li>Maintain and promptly update your information</li>
+            <li>Keep your password secure and confidential</li>
+            <li>
+              Be responsible for all activities that occur under your account
+            </li>
+            <li>
+              Notify us immediately of any unauthorized use of your account
+            </li>
+          </ul>
+          <p>
+            We reserve the right to refuse service, terminate accounts, or
+            remove content at our sole discretion.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">4. User Responsibilities</h2>
+        <div class="section-content">
+          <p>
+            You agree to use the Service only for lawful purposes and in
+            accordance with these Terms. You agree not to:
+          </p>
+          <ul>
+            <li>
+              Use the Service in any way that violates any applicable law or
+              regulation
+            </li>
+            <li>Engage in any fraudulent, abusive, or illegal activity</li>
+            <li>
+              Attempt to gain unauthorized access to any accounts, systems, or
+              networks
+            </li>
+            <li>
+              Interfere with or disrupt the Service or servers connected to the
+              Service
+            </li>
+            <li>
+              Use any robot, spider, or other automatic device to access the
+              Service
+            </li>
+            <li>Provide false or misleading information</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">5. Financial Transactions</h2>
+        <div class="section-content">
+          <p>
+            All financial transactions conducted through the Service are subject
+            to the following terms:
+          </p>
+          <ul>
+            <li>
+              You are responsible for ensuring the accuracy of transaction
+              details
+            </li>
+            <li>Transactions may be subject to processing times and limits</li>
+            <li>We may impose transaction limits for security purposes</li>
+            <li>We may refuse to process any transaction at our discretion</li>
+            <li>
+              You are responsible for any fees associated with your transactions
+            </li>
+          </ul>
+          <p>
+            We are not responsible for any errors you make in initiating
+            transactions.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">6. Fees and Charges</h2>
+        <div class="section-content">
+          <p>
+            Use of certain services may incur fees as disclosed at the time of
+            use. You agree to pay all applicable fees and charges.
+          </p>
+          <p>
+            We reserve the right to change our fees and charges at any time, and
+            will provide notice of such changes as required by law.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">7. Intellectual Property</h2>
+        <div class="section-content">
+          <p>
+            The Service and its original content, features, and functionality
+            are owned by OwoBank and are protected by international copyright,
+            trademark, patent, trade secret, and other intellectual property or
+            proprietary rights laws.
+          </p>
+          <p>
+            You may not modify, reproduce, distribute, create derivative works
+            of, publicly display, or in any way exploit any of the content or
+            materials of the Service without our express written permission.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">8. Limitation of Liability</h2>
+        <div class="section-content">
+          <p>
+            To the maximum extent permitted by law, OwoBank shall not be liable
+            for any indirect, incidental, special, consequential, or punitive
+            damages, or any loss of profits or revenues, whether incurred
+            directly or indirectly, or any loss of data, use, goodwill, or other
+            intangible losses, resulting from:
+          </p>
+          <ul>
+            <li>Your use or inability to use the Service</li>
+            <li>
+              Any unauthorized access to or use of our servers and/or any
+              personal information stored therein
+            </li>
+            <li>
+              Any interruption or cessation of transmission to or from the
+              Service
+            </li>
+            <li>
+              Any bugs, viruses, or the like that may be transmitted to or
+              through our Service
+            </li>
+            <li>
+              Any errors or omissions in any content or for any loss or damage
+              incurred as a result of the use of any content posted, emailed,
+              transmitted, or otherwise made available through the Service
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">9. Termination</h2>
+        <div class="section-content">
+          <p>
+            We may terminate or suspend your account and access to the Service
+            immediately, without prior notice or liability, for any reason
+            whatsoever, including without limitation if you breach these Terms.
+          </p>
+          <p>
+            Upon termination, your right to use the Service will immediately
+            cease. All provisions of these Terms which by their nature should
+            survive termination shall survive termination, including ownership
+            provisions, warranty disclaimers, indemnity, and limitations of
+            liability.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">10. Governing Law</h2>
+        <div class="section-content">
+          <p>
+            These Terms shall be governed and construed in accordance with the
+            laws of the Federal Republic of Nigeria, without regard to its
+            conflict of law provisions.
+          </p>
+          <p>
+            Any disputes arising under or in connection with these Terms shall
+            be subject to the exclusive jurisdiction of the courts of Nigeria.
+          </p>
+        </div>
+      </div>
+
+      <div class="terms-section">
+        <h2 class="section-title">11. Contact Information</h2>
+        <div class="section-content">
+          <p>If you have any questions about these Terms, please contact us:</p>
+          <ul>
+            <li>By email: legal@owobank.com</li>
+            <li>By phone: 0800-OWOBANK</li>
+            <li>Through the app: Settings > Help & Support</li>
+          </ul>
+          <p><strong>Effective Date:</strong> June 3, 2025</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div>Home</div>
+      </a>
+      <a href="transfer.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-paper-plane"></i></div>
+        <div>Transfer</div>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-cog"></i></div>
+        <div>Settings</div>
+      </a>
+    </div>
+
+    <script>
+      // Back button functionality
+      document.getElementById("backBtn").addEventListener("click", () => {
+        window.history.back();
+      });
+    </script>
+  </body>
+</html>

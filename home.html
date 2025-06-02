@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OwoBank - Digital Banking</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #d63031;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      .menu-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .menu-icon:hover {
+        transform: scale(1.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        margin-left: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        animation: glow 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        to {
+          text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(168, 255, 252, 0.4);
+        }
+      }
+
+      .profile {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--primary-light)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Balance Card */
+      .balance-card {
+        margin: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border-radius: 20px;
+        padding: 25px;
+        color: white;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: var(--transition);
+        animation: cardEntrance 0.8s ease-out;
+      }
+
+      .balance-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        z-index: -1;
+      }
+
+      @keyframes cardEntrance {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .account-holder {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        opacity: 0.9;
+      }
+
+      .balance {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .currency {
+        font-size: 18px;
+        margin-right: 5px;
+        opacity: 0.8;
+      }
+
+      .account-number {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+
+      .card-actions {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .card-action {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .card-action:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+      }
+
+      /* Card Indicators */
+      .card-indicators {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+        gap: 8px;
+      }
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(108, 92, 231, 0.3);
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .indicator.active {
+        width: 30px;
+        border-radius: 5px;
+        background-color: var(--primary);
+      }
+
+      /* Reward Section */
+      .reward-section {
+        margin: 20px;
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .reward-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--secondary), var(--accent));
+      }
+
+      .reward-info h4 {
+        font-size: 14px;
+        color: var(--text-light);
+        margin-bottom: 5px;
+      }
+
+      .reward-amount {
+        font-size: 22px;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--secondary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .reward-button {
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(253, 121, 168, 0.3);
+      }
+
+      .reward-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(253, 121, 168, 0.4);
+      }
+
+      .reward-button:disabled {
+        background: #dfe6e9;
+        color: #b2bec3;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .reward-button:disabled:hover {
+        transform: none;
+      }
+
+      /* Quick Actions */
+      .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 30px 20px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .section-link {
+        color: var(--primary);
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .section-link i {
+        margin-left: 5px;
+        transition: var(--transition);
+      }
+
+      .section-link:hover i {
+        transform: translateX(3px);
+      }
+
+      .quicklinks {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        padding: 0 20px;
+      }
+
+      .quick-action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text);
+        transition: var(--transition);
+      }
+
+      .action-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 24px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .action-icon::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(108, 92, 231, 0.1),
+          rgba(0, 206, 201, 0.1)
+        );
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .quick-action:hover .action-icon {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .quick-action:hover .action-icon::after {
+        opacity: 1;
+      }
+
+      .action-label {
+        font-size: 12px;
+        text-align: center;
+        font-weight: 500;
+        color: var(--text-light);
+      }
+
+      /* Deals Banner */
+      .deals-banner {
+        margin: 20px;
+        background: linear-gradient(135deg, #2d3436, #636e72);
+        border-radius: 20px;
+        height: 120px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+        color: white;
+        box-shadow: var(--shadow);
+        margin-bottom: 100px;
+      }
+
+      .deals-content h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .deals-content p {
+        font-size: 14px;
+        opacity: 0.9;
+        max-width: 60%;
+      }
+
+      .banner-image {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 40%;
+        background-image: url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80");
+        background-size: cover;
+        background-position: center;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 12px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 90;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 10px;
+        transition: var(--transition);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+      }
+
+      .nav-active {
+        color: var(--primary);
+        transform: translateY(-5px);
+      }
+
+      .nav-active .nav-icon {
+        transform: scale(1.2);
+      }
+
+      /* Drawer Styles */
+      .drawer-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .drawer-overlay.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .drawer {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: white;
+        z-index: 1001;
+        transition: var(--transition);
+        box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .drawer.open {
+        left: 0;
+      }
+
+      .drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+      }
+
+      .drawer-close {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .drawer-close:hover {
+        transform: rotate(90deg);
+      }
+
+      .drawer-profile {
+        display: flex;
+        align-items: center;
+        padding: 25px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .drawer-profile-pic {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--primary-light)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 24px;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .drawer-profile-info h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .drawer-profile-info p {
+        font-size: 14px;
+        color: var(--text-light);
+      }
+
+      .drawer-menu {
+        list-style: none;
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 15px 0;
+      }
+
+      .drawer-menu-item {
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .drawer-menu-item:hover {
+        background: rgba(108, 92, 231, 0.05);
+      }
+
+      .drawer-menu-item i {
+        margin-right: 15px;
+        color: var(--primary);
+        width: 24px;
+        text-align: center;
+        font-size: 18px;
+      }
+
+      .drawer-menu-item a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .drawer-footer {
+        padding: 15px 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-light);
+      }
+
+      /* Bottom Sheet */
+      .bottom-sheet-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .bottom-sheet-overlay.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .bottom-sheet {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 25px 25px 0 0;
+        padding: 25px;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+        z-index: 1001;
+      }
+
+      .bottom-sheet.open {
+        bottom: 0;
+      }
+
+      .bottom-sheet-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .bottom-sheet-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .bottom-sheet-close {
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .bottom-sheet-close:hover {
+        color: var(--primary);
+        transform: rotate(90deg);
+      }
+
+      .bottom-sheet-content {
+        margin-bottom: 20px;
+      }
+
+      .account-info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .account-info-label {
+        color: var(--text-light);
+      }
+
+      .account-info-value {
+        font-weight: 500;
+      }
+
+      .bottom-sheet-footer {
+        color: var(--text-light);
+        font-size: 12px;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      /* Animations */
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 480px) {
+        .quicklinks {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .balance {
+          font-size: 24px;
+        }
+
+        .reward-amount {
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .quicklinks {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .logo-text {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Side Drawer -->
+    <div class="drawer-overlay"></div>
+    <div class="drawer">
+      <div class="drawer-header">
+        <div class="logo-text">OwoBank</div>
+        <div class="drawer-close">&times;</div>
+      </div>
+
+      <div class="drawer-profile">
+        <div class="drawer-profile-pic" id="drawer-profile-initial">D</div>
+        <div class="drawer-profile-info">
+          <h3 id="drawer-profile-name">Davio White</h3>
+          <p id="drawer-profile-account">Savings account: ***1234</p>
+        </div>
+      </div>
+
+      <ul class="drawer-menu">
+        <li class="drawer-menu-item">
+          <i class="fas fa-home"></i>
+          <a href="#">Home</a>
+        </li>
+        <li class="drawer-menu-item">
+          <i class="fas fa-exchange-alt"></i>
+          <a href="#">Transactions</a>
+        </li>
+        <li class="drawer-menu-item">
+          <i class="fas fa-qrcode"></i>
+          <a href="#">QR Actions</a>
+        </li>
+        <li class="drawer-menu-item">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <a href="#">Pay Bills</a>
+        </li>
+        <!-- <li class="drawer-menu-item">
+          <i class="fas fa-mobile-alt"></i>
+          <a href="#">Buy Data</a>
+        </li> -->
+        <li class="drawer-menu-item">
+          <i class="fas fa-hand-holding-usd"></i>
+          <a href="#">Loans</a>
+        </li>
+        <li class="drawer-menu-item">
+          <i class="fas fa-trophy"></i>
+          <a href="#">Awards & Gains</a>
+        </li>
+        <li class="drawer-menu-item">
+          <i class="fas fa-cog"></i>
+          <a href="#">Settings</a>
+        </li>
+        <li class="drawer-menu-item" id="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+          <a href="#">Logout</a>
+        </li>
+      </ul>
+
+      <div class="drawer-footer">OwoBank</div>
+    </div>
+
+    <!-- Bottom Sheet for Account Details -->
+    <div class="bottom-sheet-overlay"></div>
+    <div class="bottom-sheet">
+      <div class="bottom-sheet-header">
+        <div class="bottom-sheet-title">Account Details</div>
+        <div class="bottom-sheet-close">&times;</div>
+      </div>
+      <div class="bottom-sheet-content">
+        <div class="account-info-item">
+          <span class="account-info-label">Account Name:</span>
+          <span class="account-info-value" id="bs-account-name"
+            >Grace God'sGrace</span
+          >
+        </div>
+        <div class="account-info-item">
+          <span class="account-info-label">Bank Name:</span>
+          <span class="account-info-value">Palmpay</span>
+        </div>
+        <div class="account-info-item">
+          <span class="account-info-label">Account Number:</span>
+          <span class="account-info-value" id="bs-account-number"
+            >6680087150</span
+          >
+        </div>
+      </div>
+      <div class="bottom-sheet-footer">
+        Minimum deposit: ₦5,000 (Amounts less than this won't reflect)
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="header">
+      <div class="menu-icon"><i class="fas fa-bars"></i></div>
+      <div class="logo-container">
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <div class="profile" id="profile-initial">D</div>
+    </div>
+
+    <div class="balance-card">
+      <div class="account-holder" id="userName">DAVIO WHITE</div>
+      <div class="balance">
+        <span class="currency"><!---naira symbol----></span>
+        <span class="amount" id="accountBalance">100,000,000.00</span>
+      </div>
+      <div class="account-number" id="accountNumber">
+        Savings account: ***1234
+      </div>
+      <div class="card-actions">
+        <div class="card-action" id="addFundsBtn">
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="card-action">
+          <i class="fas fa-exchange-alt"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-indicators">
+      <div class="indicator active"></div>
+      <div class="indicator"></div>
+      <div class="indicator"></div>
+    </div>
+
+    <!-- Reward Balance Section -->
+    <div class="reward-section">
+      <div class="reward-info">
+        <h4>Reward Balance</h4>
+        <div class="reward-amount" id="rewardBalance">₦30,000.00</div>
+      </div>
+      <button class="reward-button" id="claimRewardBtn" disabled>
+        Claim Reward
+      </button>
+    </div>
+
+    <div class="section-title">
+      <div>Quick Actions</div>
+      <div class="section-link">
+        View all <i class="fas fa-chevron-right"></i>
+      </div>
+    </div>
+
+    <div class="quicklinks">
+      <a href="#" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-paper-plane" style="color: #6c5ce7"></i>
+        </div>
+        <div class="action-label">Send Money</div>
+      </a>
+      <a href="#" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-qrcode" style="color: #00cec9"></i>
+        </div>
+        <div class="action-label">QR Pay</div>
+      </a>
+      <a href="#" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-file-invoice-dollar" style="color: #fd79a8"></i>
+        </div>
+        <div class="action-label">Pay Bills</div>
+      </a>
+
+      <a href="#" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-hand-holding-usd" style="color: #00b894"></i>
+        </div>
+        <div class="action-label">Loans</div>
+      </a>
+      <a href="#" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-trophy" style="color: #fdcb6e"></i>
+        </div>
+        <div class="action-label">Awards</div>
+      </a>
+      <a href="#" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-wallet" style="color: #a29bfe"></i>
+        </div>
+        <div class="action-label">Wallet</div>
+      </a>
+      <a href="settings.html" class="quick-action">
+        <div class="action-icon">
+          <i class="fas fa-cog" style="color: #636e72"></i>
+        </div>
+        <div class="action-label">Settings</div>
+      </a>
+    </div>
+
+    <div class="section-title">
+      <div>Exclusive Deals</div>
+      <div class="section-link">
+        See all <i class="fas fa-chevron-right"></i>
+      </div>
+    </div>
+
+    <div class="deals-banner">
+      <div class="deals-content">
+        <h3>NEW USER BENEFITS</h3>
+        <p>
+          Unlock 30,000 Naira exclusive rewards with transactions above ₦5,000
+        </p>
+      </div>
+      <div class="banner-image"></div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="#" class="nav-item nav-active">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div>Home</div>
+      </a>
+      <!-- <a href="#" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div>Market</div>
+      </a>
+      <a href="#" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-concierge-bell"></i></div>
+        <div>Services</div>
+      </a> -->
+      <a href="#" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-bell"></i></div>
+        <div>Alerts</div>
+      </a>
+    </div>
+
+    <script>
+      // DOM Elements
+      const menuIcon = document.querySelector(".menu-icon");
+      const drawerOverlay = document.querySelector(".drawer-overlay");
+      const drawer = document.querySelector(".drawer");
+      const drawerClose = document.querySelector(".drawer-close");
+      const bottomSheetOverlay = document.querySelector(
+        ".bottom-sheet-overlay"
+      );
+      const bottomSheet = document.querySelector(".bottom-sheet");
+      const bottomSheetClose = document.querySelector(".bottom-sheet-close");
+      const profileInitial = document.getElementById("profile-initial");
+      const drawerProfileInitial = document.getElementById(
+        "drawer-profile-initial"
+      );
+      const userName = document.getElementById("userName");
+      const accountBalance = document.getElementById("accountBalance");
+      const accountNumber = document.getElementById("accountNumber");
+      const rewardBalance = document.getElementById("rewardBalance");
+      const claimRewardBtn = document.getElementById("claimRewardBtn");
+      const addFundsBtn = document.getElementById("addFundsBtn");
+      const logoutBtn = document.getElementById("logout-btn");
+      const quickActions = document.querySelectorAll(".quick-action");
+      const navItems = document.querySelectorAll(".nav-item");
+
+      // Get user data from local storage
+      let currentUser =
+        JSON.parse(localStorage.getItem("owobank_current_user")) || {};
+      let users = JSON.parse(localStorage.getItem("owobank_users")) || {};
+
+      // Initialize the page with user data
+      function initUserData() {
+        if (!currentUser.phone) {
+          window.location.href = "auth.html";
+          return;
+        }
+
+        // Update user data from storage in case it changed
+        currentUser = users[currentUser.phone] || currentUser;
+        localStorage.setItem(
+          "owobank_current_user",
+          JSON.stringify(currentUser)
+        );
+
+        // Display user data
+        const initials = currentUser.fullName
+          ? currentUser.fullName
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+          : "U";
+        profileInitial.textContent = initials.charAt(0);
+        drawerProfileInitial.textContent = initials.charAt(0);
+
+        document.getElementById("drawer-profile-name").textContent =
+          currentUser.fullName || "User";
+        document.getElementById(
+          "drawer-profile-account"
+        ).textContent = `Savings account: ***${currentUser.phone.slice(-4)}`;
+        // document.getElementById("bs-account-name").textContent =
+        //   currentUser.fullName || "User";
+        // document.getElementById("bs-account-number").textContent =
+        //   currentUser.phone || "N/A";
+
+        userName.textContent = (currentUser.fullName || "User").toUpperCase();
+        accountBalance.textContent = formatCurrency(currentUser.balance || 0);
+        accountNumber.textContent = `Savings account: ***${currentUser.phone.slice(
+          -4
+        )}`;
+        rewardBalance.textContent = formatCurrency(
+          currentUser.rewardBalance || 0
+        );
+
+        // Disable claim reward button if balance is less than 5000
+        if (currentUser.balance >= 5000) {
+          claimRewardBtn.disabled = false;
+        }
+      }
+
+      // Format currency with commas
+      function formatCurrency(amount) {
+        return (
+          "₦" +
+          parseFloat(amount)
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+        );
+      }
+
+      // Drawer functions
+      function openDrawer() {
+        drawerOverlay.classList.add("open");
+        drawer.classList.add("open");
+      }
+
+      function closeDrawer() {
+        drawerOverlay.classList.remove("open");
+        drawer.classList.remove("open");
+      }
+
+      // Bottom sheet functions
+      function openBottomSheet() {
+        bottomSheetOverlay.classList.add("open");
+        bottomSheet.classList.add("open");
+      }
+
+      function closeBottomSheet() {
+        bottomSheetOverlay.classList.remove("open");
+        bottomSheet.classList.remove("open");
+      }
+
+      // Event listeners
+      menuIcon.addEventListener("click", openDrawer);
+      drawerOverlay.addEventListener("click", closeDrawer);
+      drawerClose.addEventListener("click", closeDrawer);
+      bottomSheetOverlay.addEventListener("click", closeBottomSheet);
+      bottomSheetClose.addEventListener("click", closeBottomSheet);
+
+      // Profile initial click to show account details
+      profileInitial.addEventListener("click", openBottomSheet);
+
+      // Add funds button - shows bottom sheet
+      addFundsBtn.addEventListener("click", function (e) {
+        e.stopPropagation(); // Prevent event bubbling
+        openBottomSheet();
+      });
+
+      // Claim reward button
+      claimRewardBtn.addEventListener("click", function () {
+        if (currentUser.balance < 5000) {
+          alert(
+            "You need to make a transaction of ₦5,000 or more to claim your reward."
+          );
+        } else {
+          alert(
+            "Reward can only be claimed after making a transaction of ₦5,000 or more."
+          );
+        }
+      });
+
+      // Logout button
+      logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("owobank_current_user");
+        window.location.href = "auth.html";
+      });
+
+      // Quick action links
+      quickActions.forEach((action) => {
+        const label = action.querySelector(".action-label").textContent;
+        action.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          switch (label) {
+            case "Send Money":
+              window.location.href = "transfer.html";
+              break;
+            case "Pay Bills":
+              window.location.href = "bills.html";
+              break;
+
+            case "Wallet":
+              window.location.href = "home.html";
+              break;
+            case "Settings":
+              window.location.href = "settings.html";
+              break;
+            default:
+              alert(`${label} feature is coming soon!`);
+          }
+        });
+      });
+
+      // Navigation items
+      navItems.forEach((item) => {
+        const label = item.querySelector("div").textContent;
+        item.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          switch (label) {
+            case "Home":
+              window.location.href = "home.html";
+              break;
+            case "Market":
+              window.location.href = "market.html";
+              break;
+            case "Alerts":
+              window.location.href = "alert.html";
+              break;
+            default:
+              alert(`${label} feature is coming soon!`);
+          }
+        });
+      });
+
+      // Drawer menu items
+      document.querySelectorAll(".drawer-menu-item").forEach((item) => {
+        const text = item.querySelector("a").textContent;
+        item.addEventListener("click", function (e) {
+          e.preventDefault();
+          closeDrawer();
+
+          switch (text) {
+            case "Home":
+              window.location.href = "home.html";
+              break;
+            case "Transactions":
+              alert("Transactions feature is coming soon!");
+              break;
+            case "QR Actions":
+              alert("QR Actions feature is coming soon!");
+              break;
+            case "Pay Bills":
+              window.location.href = "bills.html";
+              break;
+            case "Buy Data":
+              window.location.href = "data.html";
+              break;
+            case "Loans":
+              alert("Loans feature is coming soon!");
+              break;
+            case "Awards & Gains":
+              alert("Awards & Gains feature is coming soon!");
+              break;
+            case "Settings":
+              window.location.href = "settings.html";
+              break;
+            case "Logout":
+              localStorage.removeItem("owobank_current_user");
+              window.location.href = "auth.html";
+              break;
+          }
+        });
+      });
+
+      // Initialize the page
+      initUserData();
+    </script>
+  </body>
+</html>

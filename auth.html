@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OwoBank - Digital Banking Redefined</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* overflow: hidden; */
+      }
+
+      .container {
+        width: 90%;
+        max-width: 450px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 0 20px;
+        flex-direction: column;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .logo-text {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: white;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: inline-block;
+      }
+
+      .logo-text::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: white;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+      }
+
+      .logo-text:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .tab {
+        padding: 15px 0;
+        width: 50%;
+        text-align: center;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .tab.active {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .tab:not(.active):hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+      }
+
+      .form-container {
+        padding: 30px;
+      }
+
+      .form {
+        display: none;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      .form.active {
+        display: block;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .input-group label {
+        display: block;
+        color: white;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+      }
+
+      .input-group input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        background: white;
+        color: #6e8efb;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .message {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .error {
+        background: rgba(255, 99, 71, 0.3);
+        border: 1px solid rgba(255, 99, 71, 0.5);
+      }
+
+      .success {
+        background: rgba(50, 205, 50, 0.3);
+        border: 1px solid rgba(50, 205, 50, 0.5);
+      }
+
+      .bubbles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .bubble {
+        position: absolute;
+        bottom: -100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: rise 10s infinite ease-in;
+      }
+
+      .bubble:nth-child(1) {
+        width: 40px;
+        height: 40px;
+        left: 10%;
+        animation-duration: 8s;
+      }
+
+      .bubble:nth-child(2) {
+        width: 20px;
+        height: 20px;
+        left: 20%;
+        animation-duration: 5s;
+        animation-delay: 1s;
+      }
+
+      .bubble:nth-child(3) {
+        width: 50px;
+        height: 50px;
+        left: 35%;
+        animation-duration: 7s;
+        animation-delay: 2s;
+      }
+
+      .bubble:nth-child(4) {
+        width: 80px;
+        height: 80px;
+        left: 50%;
+        animation-duration: 11s;
+        animation-delay: 0s;
+      }
+
+      .bubble:nth-child(5) {
+        width: 35px;
+        height: 35px;
+        left: 55%;
+        animation-duration: 6s;
+        animation-delay: 1s;
+      }
+
+      .bubble:nth-child(6) {
+        width: 45px;
+        height: 45px;
+        left: 65%;
+        animation-duration: 8s;
+        animation-delay: 3s;
+      }
+
+      .bubble:nth-child(7) {
+        width: 25px;
+        height: 25px;
+        left: 75%;
+        animation-duration: 7s;
+        animation-delay: 2s;
+      }
+
+      .bubble:nth-child(8) {
+        width: 80px;
+        height: 80px;
+        left: 80%;
+        animation-duration: 6s;
+        animation-delay: 1s;
+      }
+
+      @keyframes rise {
+        0% {
+          bottom: -100px;
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(100px);
+        }
+        100% {
+          bottom: 1080px;
+          transform: translateX(-200px);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 500px) {
+        .container {
+          width: 95%;
+        }
+
+        .form-container {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bubbles">
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+    </div>
+
+    <div class="container">
+      <div class="logo-container">
+        <svg
+          class="logo"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#6e8efb" />
+              <stop offset="100%" stop-color="#a777e3" />
+            </linearGradient>
+          </defs>
+          <circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke="url(#gradient)"
+            stroke-width="8"
+          />
+          <path
+            d="M50,20 A30,30 0 0,1 50,80 A30,30 0 0,1 50,20"
+            fill="none"
+            stroke="white"
+            stroke-width="8"
+            stroke-linecap="round"
+          >
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50 50"
+              to="360 50 50"
+              dur="8s"
+              repeatCount="indefinite"
+            />
+          </path>
+          <circle cx="50" cy="50" r="15" fill="white" />
+        </svg>
+        <h1 class="logo-text">OwoBank</h1>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('login')">Login</div>
+        <div class="tab" onclick="switchTab('signup')">Sign Up</div>
+      </div>
+
+      <div class="form-container">
+        <form id="login-form" class="form active">
+          <div class="input-group">
+            <label for="login-phone">Phone Number</label>
+            <input
+              type="text"
+              id="login-phone"
+              placeholder="09012345678"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button type="submit" class="btn">Login</button>
+          <div id="login-message" class="message"></div>
+        </form>
+
+        <form id="signup-form" class="form">
+          <div class="input-group">
+            <label for="signup-fullname">Full Name</label>
+            <input
+              type="text"
+              id="signup-fullname"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="signup-phone">Phone Number</label>
+            <input
+              type="text"
+              id="signup-phone"
+              placeholder="09012345678"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password</label>
+            <input
+              type="password"
+              id="signup-password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="signup-confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="signup-confirm-password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button type="submit" class="btn">Create Account</button>
+          <div id="signup-message" class="message"></div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Switch between login and signup tabs
+      function switchTab(tabName) {
+        // Update active tab
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+        document
+          .querySelector(`.tab[onclick="switchTab('${tabName}')"]`)
+          .classList.add("active");
+
+        // Update active form
+        document.querySelectorAll(".form").forEach((form) => {
+          form.classList.remove("active");
+        });
+        document.getElementById(`${tabName}-form`).classList.add("active");
+      }
+
+      // Handle signup form submission
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const fullName = document
+            .getElementById("signup-fullname")
+            .value.trim();
+          const phone = document.getElementById("signup-phone").value.trim();
+          const password = document.getElementById("signup-password").value;
+          const confirmPassword = document.getElementById(
+            "signup-confirm-password"
+          ).value;
+          const messageEl = document.getElementById("signup-message");
+
+          // Validate phone number format (09012345678)
+          const phoneRegex = /^080\d{8}$/;
+          if (!phoneRegex.test(phone)) {
+            showMessage(
+              messageEl,
+              "Phone number must start with 080 and be 11 digits long",
+              "error"
+            );
+            return;
+          }
+
+          // Check if passwords match
+          if (password !== confirmPassword) {
+            showMessage(messageEl, "Passwords do not match", "error");
+            return;
+          }
+
+          // Check password length
+          if (password.length < 6) {
+            showMessage(
+              messageEl,
+              "Password must be at least 6 characters",
+              "error"
+            );
+            return;
+          }
+
+          // Check if user already exists
+          const users = JSON.parse(
+            localStorage.getItem("owobank_users") || "{}"
+          );
+          if (users[phone]) {
+            showMessage(
+              messageEl,
+              "User with this phone number already exists",
+              "error"
+            );
+            return;
+          }
+
+          // Create new user
+          const newUser = {
+            fullName,
+            phone,
+            password,
+            balance: 0.0,
+            rewardBalance: 30000,
+            transactions: [],
+          };
+
+          // Save to local storage
+          users[phone] = newUser;
+          localStorage.setItem("owobank_users", JSON.stringify(users));
+
+          // Clear form
+          this.reset();
+
+          // Show success message and switch to login tab
+          showMessage(
+            messageEl,
+            "Account created successfully! Redirecting to login...",
+            "success"
+          );
+
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 1500);
+        });
+
+      // Handle login form submission
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const phone = document.getElementById("login-phone").value.trim();
+          const password = document.getElementById("login-password").value;
+          const messageEl = document.getElementById("login-message");
+
+          // Get users from local storage
+          const users = JSON.parse(
+            localStorage.getItem("owobank_users") || "{}"
+          );
+
+          // Check if user exists
+          if (!users[phone]) {
+            showMessage(
+              messageEl,
+              "User not found. Please sign up first",
+              "error"
+            );
+            return;
+          }
+
+          // Check password
+          if (users[phone].password !== password) {
+            showMessage(messageEl, "Incorrect password", "error");
+            return;
+          }
+
+          // Login successful
+          showMessage(messageEl, "Login successful! Redirecting...", "success");
+
+          // Save current user to session
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(users[phone])
+          );
+
+          // Redirect to home page
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 1500);
+        });
+
+      // Helper function to show messages
+      function showMessage(element, text, type) {
+        element.textContent = text;
+        element.className = `message ${type}`;
+        element.style.display = "block";
+
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          element.style.display = "none";
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>

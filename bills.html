@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buy Airtime - OwoBank</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #d63031;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-bottom: 70px;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      .back-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .back-icon:hover {
+        transform: scale(1.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        margin-left: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        animation: glow 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        to {
+          text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(168, 255, 252, 0.4);
+        }
+      }
+
+      .profile {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--primary-light)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Page Title */
+      .page-title {
+        padding: 20px;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+      }
+
+      .page-title i {
+        margin-right: 15px;
+        color: var(--primary);
+      }
+
+      /* Network Selection */
+      .network-section {
+        padding: 0 20px;
+        margin-bottom: 30px;
+      }
+
+      .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-light);
+      }
+
+      .network-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+
+      .network-card {
+        background: white;
+        border-radius: 15px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        border: 2px solid transparent;
+      }
+
+      .network-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(108, 92, 231, 0.05),
+          rgba(0, 206, 201, 0.05)
+        );
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .network-card:hover::before {
+        opacity: 1;
+      }
+
+      .network-card.active {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(108, 92, 231, 0.2);
+      }
+
+      .network-card.active::before {
+        opacity: 1;
+      }
+
+      .network-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #f5f6fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+
+      .network-logo img {
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+      }
+
+      .network-name {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      /* Form Section */
+      .form-section {
+        padding: 0 20px;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-light);
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #dfe6e9;
+        font-size: 16px;
+        font-weight: 500;
+        transition: var(--transition);
+        background-color: white;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+      }
+
+      .amount-options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .amount-option {
+        padding: 12px;
+        text-align: center;
+        background: white;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border: 1px solid #dfe6e9;
+      }
+
+      .amount-option:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .amount-option.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      /* Summary Card */
+      .summary-card {
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 20px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeInUp 0.5s forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .summary-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-light);
+      }
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .summary-label {
+        font-size: 14px;
+        color: var(--text-light);
+      }
+
+      .summary-value {
+        font-weight: 600;
+      }
+
+      .divider {
+        height: 1px;
+        background: #dfe6e9;
+        margin: 15px 0;
+      }
+
+      .total {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      /* Action Button */
+      .action-button {
+        width: calc(100% - 40px);
+        margin: 20px;
+        padding: 18px;
+        border-radius: 15px;
+        border: none;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 80px;
+        left: 20px;
+      }
+
+      .action-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+      }
+
+      .action-button:disabled {
+        background: #dfe6e9;
+        color: #b2bec3;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .action-button:disabled:hover {
+        transform: none;
+      }
+
+      .action-button i {
+        margin-right: 10px;
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 12px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 90;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 10px;
+        transition: var(--transition);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+      }
+
+      .nav-active {
+        color: var(--primary);
+      }
+
+      .nav-active .nav-icon {
+        transform: scale(1.2);
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background-color: white;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        padding: 25px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        transform: translateY(30px);
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .modal-overlay.active .modal {
+        transform: translateY(0);
+      }
+
+      .modal-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 36px;
+      }
+
+      .modal-icon.success {
+        background-color: rgba(0, 184, 148, 0.1);
+        color: var(--success);
+      }
+
+      .modal-icon.error {
+        background-color: rgba(214, 48, 49, 0.1);
+        color: var(--danger);
+      }
+
+      .modal-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .modal-message {
+        font-size: 16px;
+        color: var(--text-light);
+        margin-bottom: 25px;
+      }
+
+      .modal-button {
+        padding: 12px 25px;
+        border-radius: 12px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .modal-button:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 480px) {
+        .network-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .amount-options {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 360px) {
+        .network-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Animations */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .pulse {
+        animation: pulse 1.5s infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-icon" id="backBtn">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="logo-container">
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <div class="profile" id="profileInitial">D</div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <i class="fas fa-mobile-alt"></i>
+      <div>Buy Airtime</div>
+    </div>
+
+    <!-- Network Selection -->
+    <div class="network-section">
+      <div class="section-title">Select Network</div>
+      <div class="network-grid">
+        <div class="network-card" data-network="mtn">
+          <div class="network-logo">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/New-mtn-logo.jpg/330px-New-mtn-logo.jpg"
+              alt="MTN"
+            />
+          </div>
+          <div class="network-name">MTN</div>
+        </div>
+        <div class="network-card" data-network="airtel">
+          <div class="network-logo">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Bharti_Airtel_Logo.svg/330px-Bharti_Airtel_Logo.svg.png"
+              alt="Airtel"
+            />
+          </div>
+          <div class="network-name">Airtel</div>
+        </div>
+        <div class="network-card" data-network="glo">
+          <div class="network-logo">
+            <img src="https://www.gloworld.com/logo.png" alt="Glo" />
+          </div>
+          <div class="network-name">Glo</div>
+        </div>
+        <div class="network-card" data-network="9mobile">
+          <div class="network-logo">
+            <img
+              src="https://9mobile.com.ng/_next/static/media/logos.2143115e.png"
+              alt="9mobile"
+            />
+          </div>
+          <div class="network-name">9mobile</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <div class="form-group">
+        <label class="form-label" for="phoneNumber">Phone Number</label>
+        <input
+          type="tel"
+          class="form-input"
+          id="phoneNumber"
+          placeholder="Enter phone number"
+          maxlength="11"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Amount (₦)</label>
+        <input
+          type="number"
+          class="form-input"
+          id="amount"
+          placeholder="Enter amount (min ₦50)"
+          min="50"
+        />
+        <div class="amount-options">
+          <div class="amount-option" data-amount="100">₦100</div>
+          <div class="amount-option" data-amount="200">₦200</div>
+          <div class="amount-option" data-amount="500">₦500</div>
+          <div class="amount-option" data-amount="1000">₦1,000</div>
+          <div class="amount-option" data-amount="2000">₦2,000</div>
+          <div class="amount-option" data-amount="5000">₦5,000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Card -->
+    <div class="summary-card" id="summaryCard">
+      <div class="summary-title">Purchase Summary</div>
+      <div class="summary-item">
+        <span class="summary-label">Network:</span>
+        <span class="summary-value" id="summaryNetwork">-</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Phone Number:</span>
+        <span class="summary-value" id="summaryPhone">-</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Amount:</span>
+        <span class="summary-value" id="summaryAmount">-</span>
+      </div>
+      <div class="divider"></div>
+      <div class="summary-item">
+        <span class="summary-label">Total:</span>
+        <span class="summary-value total" id="summaryTotal">₦0.00</span>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <button class="action-button" id="buyButton" disabled>
+      <i class="fas fa-shopping-cart"></i> Buy Airtime
+    </button>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div>Home</div>
+      </a>
+      <!-- <a href="market.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div>Market</div>
+      </a> -->
+      <a href="#" class="nav-item nav-active">
+        <div class="nav-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div>Airtime</div>
+      </a>
+      <a href="alert.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-bell"></i></div>
+        <div>Alerts</div>
+      </a>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <div class="modal-icon success" id="modalIcon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h3 class="modal-title" id="modalTitle">Success!</h3>
+        <p class="modal-message" id="modalMessage">
+          Your airtime purchase was successful.
+        </p>
+        <button class="modal-button" id="modalButton">Done</button>
+      </div>
+    </div>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+      // DOM Elements
+      const backBtn = document.getElementById("backBtn");
+      const profileInitial = document.getElementById("profileInitial");
+      const networkCards = document.querySelectorAll(".network-card");
+      const phoneNumberInput = document.getElementById("phoneNumber");
+      const amountInput = document.getElementById("amount");
+      const amountOptions = document.querySelectorAll(".amount-option");
+      const summaryCard = document.getElementById("summaryCard");
+      const summaryNetwork = document.getElementById("summaryNetwork");
+      const summaryPhone = document.getElementById("summaryPhone");
+      const summaryAmount = document.getElementById("summaryAmount");
+      const summaryTotal = document.getElementById("summaryTotal");
+      const buyButton = document.getElementById("buyButton");
+      const modalOverlay = document.getElementById("modalOverlay");
+      const modalIcon = document.getElementById("modalIcon");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalMessage = document.getElementById("modalMessage");
+      const modalButton = document.getElementById("modalButton");
+
+      // User data
+      let currentUser =
+        JSON.parse(localStorage.getItem("owobank_current_user")) || {};
+      let users = JSON.parse(localStorage.getItem("owobank_users")) || {};
+
+      // Form data
+      let formData = {
+        network: null,
+        phoneNumber: "",
+        amount: 0,
+      };
+
+      // Initialize the page
+      function init() {
+        // Update user data from storage
+        if (currentUser.phone) {
+          currentUser = users[currentUser.phone] || currentUser;
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(currentUser)
+          );
+        }
+
+        // Set profile initial
+        const initials = currentUser.fullName
+          ? currentUser.fullName
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+          : "U";
+        profileInitial.textContent = initials.charAt(0);
+
+        // Event listeners
+        backBtn.addEventListener("click", () => {
+          window.location.href = "home.html";
+        });
+
+        // Network selection
+        networkCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            networkCards.forEach((c) => c.classList.remove("active"));
+            card.classList.add("active");
+            formData.network = card.dataset.network;
+            updateSummary();
+            validateForm();
+          });
+        });
+
+        // Phone number input
+        phoneNumberInput.addEventListener("input", (e) => {
+          formData.phoneNumber = e.target.value;
+          updateSummary();
+          validateForm();
+        });
+
+        // Amount input
+        amountInput.addEventListener("input", (e) => {
+          const value = parseFloat(e.target.value) || 0;
+          if (value >= 50) {
+            formData.amount = value;
+          } else {
+            formData.amount = 0;
+          }
+          updateSummary();
+          validateForm();
+        });
+
+        // Amount options
+        amountOptions.forEach((option) => {
+          option.addEventListener("click", () => {
+            amountOptions.forEach((opt) => opt.classList.remove("active"));
+            option.classList.add("active");
+            const amount = parseFloat(option.dataset.amount);
+            amountInput.value = amount;
+            formData.amount = amount;
+            updateSummary();
+            validateForm();
+          });
+        });
+
+        // Buy button
+        buyButton.addEventListener("click", processPayment);
+
+        // Modal button
+        modalButton.addEventListener("click", () => {
+          modalOverlay.classList.remove("active");
+        });
+      }
+
+      // Update summary card
+      function updateSummary() {
+        if (formData.network) {
+          summaryNetwork.textContent = formData.network.toUpperCase();
+        }
+        if (formData.phoneNumber) {
+          summaryPhone.textContent = formData.phoneNumber;
+        }
+        if (formData.amount > 0) {
+          summaryAmount.textContent = `₦${formData.amount.toLocaleString()}`;
+          summaryTotal.textContent = `₦${formData.amount.toLocaleString()}`;
+        }
+      }
+
+      // Validate form
+      function validateForm() {
+        const isValid =
+          formData.network &&
+          formData.phoneNumber.length === 11 &&
+          formData.amount >= 50;
+
+        buyButton.disabled = !isValid;
+        return isValid;
+      }
+
+      // Process payment
+      function processPayment() {
+        if (!validateForm()) return;
+
+        // Check user balance
+        if (currentUser.balance < formData.amount) {
+          showModal(
+            "error",
+            "Insufficient Balance",
+            `You don't have enough funds to complete this transaction. Your current balance is ₦${currentUser.balance.toLocaleString()}.`
+          );
+          return;
+        }
+
+        // For demo purposes, we'll simulate a successful payment
+        // In a real app, you would integrate with Paystack here
+        simulatePayment();
+
+        // Actual Paystack integration would look like this:
+        /*
+            const handler = PaystackPop.setup({
+                key: 'sk_live_10c0e04c59b08551589fee30b66124f36f4460ec',
+                email: currentUser.email,
+                amount: formData.amount * 100, // Convert to kobo
+                currency: 'NGN',
+                ref: 'AT' + Date.now(), // Generate a unique reference
+                metadata: {
+                    network: formData.network,
+                    phone: formData.phoneNumber
+                },
+                callback: function(response) {
+                    // Payment successful
+                    completeTransaction(response.reference);
+                },
+                onClose: function() {
+                    // Payment window closed
+                    showModal(
+                        'error',
+                        'Payment Cancelled',
+                        'You cancelled the payment process. Your account has not been charged.'
+                    );
+                }
+            });
+            handler.openIframe();
+            */
+      }
+
+      // Simulate payment (for demo)
+      function simulatePayment() {
+        // Show loading state
+        buyButton.disabled = true;
+        buyButton.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        // Simulate API call delay
+        setTimeout(() => {
+          // Generate a fake reference
+          const reference = "AT" + Date.now();
+
+          // Complete the transaction
+          completeTransaction(reference);
+        }, 2000);
+      }
+
+      // Complete transaction
+      function completeTransaction(reference) {
+        // Deduct amount from user balance
+        currentUser.balance -= formData.amount;
+
+        // Update user data
+        users[currentUser.phone] = currentUser;
+        localStorage.setItem("owobank_users", JSON.stringify(users));
+        localStorage.setItem(
+          "owobank_current_user",
+          JSON.stringify(currentUser)
+        );
+
+        // Show success message
+        showModal(
+          "success",
+          "Airtime Purchased!",
+          `Your ${formData.network.toUpperCase()} airtime of ₦${formData.amount.toLocaleString()} for ${
+            formData.phoneNumber
+          } was successful. Transaction ID: ${reference}`
+        );
+
+        // Reset form
+        resetForm();
+      }
+
+      // Show modal
+      function showModal(type, title, message) {
+        // Set modal content based on type
+        modalIcon.className = `modal-icon ${type}`;
+        modalIcon.innerHTML =
+          type === "success"
+            ? '<i class="fas fa-check"></i>'
+            : '<i class="fas fa-times"></i>';
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+
+        // Show modal
+        modalOverlay.classList.add("active");
+
+        // Reset button state
+        buyButton.disabled = false;
+        buyButton.innerHTML =
+          '<i class="fas fa-shopping-cart"></i> Buy Airtime';
+      }
+
+      // Reset form
+      function resetForm() {
+        // Reset form data
+        formData = {
+          network: null,
+          phoneNumber: "",
+          amount: 0,
+        };
+
+        // Reset UI
+        networkCards.forEach((c) => c.classList.remove("active"));
+        phoneNumberInput.value = "";
+        amountInput.value = "";
+        amountOptions.forEach((opt) => opt.classList.remove("active"));
+
+        // Reset summary
+        summaryNetwork.textContent = "-";
+        summaryPhone.textContent = "-";
+        summaryAmount.textContent = "-";
+        summaryTotal.textContent = "₦0.00";
+
+        // Disable buy button
+        buyButton.disabled = true;
+      }
+
+      // Initialize the app
+      init();
+    </script>
+  </body>
+</html>

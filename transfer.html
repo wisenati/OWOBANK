@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OwoBank - Send Money</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --primary-dark: #5649c0;
+        --primary-light: #a29bfe;
+        --secondary: #fd79a8;
+        --accent: #00cec9;
+        --dark: #2d3436;
+        --light: #f5f6fa;
+        --success: #00b894;
+        --warning: #fdcb6e;
+        --danger: #d63031;
+        --text: #2d3436;
+        --text-light: #636e72;
+        --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      .back-icon {
+        font-size: 24px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .back-icon:hover {
+        transform: scale(1.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        margin-left: 10px;
+        background: linear-gradient(to right, #fff, #a29bfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        animation: glow 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        to {
+          text-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+            0 0 20px rgba(168, 255, 252, 0.4);
+        }
+      }
+
+      .profile {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent),
+          var(--primary-light)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Main Content */
+      .main-content {
+        padding: 20px;
+        padding-bottom: 80px;
+      }
+
+      .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+      }
+
+      .page-title i {
+        margin-right: 10px;
+      }
+
+      /* Transfer Form */
+      .transfer-form {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-light);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        font-size: 16px;
+        transition: var(--transition);
+        background-color: #f9f9f9;
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        background-color: white;
+      }
+
+      /* Amount Input */
+      .amount-input {
+        position: relative;
+      }
+
+      .currency-symbol {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      .amount-input .form-control {
+        padding-left: 40px;
+      }
+
+      .amount-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .amount-btn {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(108, 92, 231, 0.1);
+        color: var(--primary);
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .amount-btn:hover {
+        background: rgba(108, 92, 231, 0.2);
+      }
+
+      /* Notes Input */
+      .notes-input textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      /* Submit Button */
+      .submit-btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+      }
+
+      .submit-btn:disabled {
+        background: #dfe6e9;
+        color: #b2bec3;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .submit-btn:disabled:hover {
+        transform: none;
+      }
+
+      .submit-btn i {
+        margin-left: 8px;
+      }
+
+      /* Notification Dialog */
+      .notification {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 15px 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        z-index: 1100;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .notification.show {
+        opacity: 1;
+        visibility: visible;
+        animation: slideDown 0.5s ease-out, fadeOut 0.5s ease-out 3s forwards;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translate(-50%, -30px);
+        }
+        to {
+          transform: translate(-50%, 0);
+        }
+      }
+
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+
+      .notification-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .notification-icon.success {
+        background: var(--success);
+        color: white;
+      }
+
+      .notification-icon.error {
+        background: var(--danger);
+        color: white;
+      }
+
+      .notification-icon.warning {
+        background: var(--warning);
+        color: var(--dark);
+      }
+
+      .notification-content h4 {
+        font-size: 15px;
+        margin-bottom: 3px;
+      }
+
+      .notification-content p {
+        font-size: 13px;
+        color: var(--text-light);
+      }
+
+      /* Insufficient Balance Dialog */
+      .dialog-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+      }
+
+      .dialog-overlay.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .dialog {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transform: translateY(20px);
+        transition: var(--transition);
+      }
+
+      .dialog-overlay.open .dialog {
+        transform: translateY(0);
+      }
+
+      .dialog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .dialog-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .dialog-close {
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .dialog-close:hover {
+        color: var(--primary);
+        transform: rotate(90deg);
+      }
+
+      .dialog-content {
+        margin-bottom: 20px;
+        font-size: 15px;
+        color: var(--text-light);
+      }
+
+      .dialog-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .dialog-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .dialog-btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .dialog-btn-primary:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 12px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+        z-index: 90;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 10px;
+        transition: var(--transition);
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        transition: var(--transition);
+      }
+
+      .nav-active {
+        color: var(--primary);
+        transform: translateY(-5px);
+      }
+
+      .nav-active .nav-icon {
+        transform: scale(1.2);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 480px) {
+        .main-content {
+          padding: 15px;
+          padding-bottom: 80px;
+        }
+
+        .transfer-form {
+          padding: 20px;
+        }
+
+        .page-title {
+          font-size: 22px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .logo-text {
+          font-size: 20px;
+        }
+
+        .amount-actions {
+          flex-wrap: wrap;
+        }
+
+        .amount-btn {
+          flex: 1 0 40%;
+          margin-bottom: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="back-icon" id="backBtn">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="logo-container">
+        <div class="logo-text">OwoBank</div>
+      </div>
+      <div class="profile" id="profileInitial">D</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1 class="page-title"><i class="fas fa-paper-plane"></i> Send Money</h1>
+
+      <form class="transfer-form" id="transferForm">
+        <div class="form-group">
+          <label class="form-label" for="accountName">Recipient Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="accountName"
+            placeholder="Enter recipient's full name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="Bankname">Recipient Bank</label>
+          <input
+            type="text"
+            class="form-control"
+            id="BankName"
+            placeholder="Enter recipient's Bank"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="accountNumber">Account Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="accountNumber"
+            placeholder="Enter account number"
+            maxlength="10"
+          />
+        </div>
+
+        <div class="form-group amount-input">
+          <label class="form-label" for="amount">Amount</label>
+          <span class="currency-symbol">₦</span>
+          <input
+            type="number"
+            class="form-control"
+            id="amount"
+            placeholder="0.00"
+            min="100"
+          />
+          <div class="amount-actions">
+            <button type="button" class="amount-btn" data-amount="1000">
+              ₦1,000
+            </button>
+            <button type="button" class="amount-btn" data-amount="5000">
+              ₦5,000
+            </button>
+            <button type="button" class="amount-btn" data-amount="10000">
+              ₦10,000
+            </button>
+            <button type="button" class="amount-btn" data-amount="50000">
+              ₦50,000
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group notes-input">
+          <label class="form-label" for="description"
+            >Description (Optional)</label
+          >
+          <textarea
+            class="form-control"
+            id="description"
+            placeholder="Add a note about this transfer"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn" disabled>
+          Continue <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Notification Dialog -->
+    <div class="notification" id="notification">
+      <div class="notification-icon success" id="notificationIcon">
+        <i class="fas fa-check"></i>
+      </div>
+      <div class="notification-content">
+        <h4 id="notificationTitle">Success</h4>
+        <p id="notificationMessage">Your transfer was successful</p>
+      </div>
+    </div>
+
+    <!-- Insufficient Balance Dialog -->
+    <div class="dialog-overlay" id="insufficientBalanceDialog">
+      <div class="dialog">
+        <div class="dialog-header">
+          <div class="dialog-title">Insufficient Balance</div>
+          <div class="dialog-close" id="dialogClose">&times;</div>
+        </div>
+        <div class="dialog-content">
+          You don't have enough balance in your account to complete this
+          transfer. The minimum transfer amount is ₦100.
+        </div>
+        <div class="dialog-actions">
+          <button class="dialog-btn dialog-btn-primary" id="dialogOkBtn">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-home"></i></div>
+        <div>Home</div>
+      </a>
+      <a href="#" class="nav-item nav-active">
+        <div class="nav-icon"><i class="fas fa-paper-plane"></i></div>
+        <div>Transfer</div>
+      </a>
+      <!-- <a href="#" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-concierge-bell"></i></div>
+        <div>Services</div>
+      </a>
+      <a href="#" class="nav-item">
+        <div class="nav-icon"><i class="fas fa-bell"></i></div>
+        <div>Alerts</div>
+      </a> -->
+    </div>
+
+    <script>
+      // DOM Elements
+      const backBtn = document.getElementById("backBtn");
+      const profileInitial = document.getElementById("profileInitial");
+      const transferForm = document.getElementById("transferForm");
+      const accountNameInput = document.getElementById("accountName");
+      const accountNumberInput = document.getElementById("accountNumber");
+      const amountInput = document.getElementById("amount");
+      const descriptionInput = document.getElementById("description");
+      const submitBtn = document.getElementById("submitBtn");
+      const amountBtns = document.querySelectorAll(".amount-btn");
+      const notification = document.getElementById("notification");
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationTitle = document.getElementById("notificationTitle");
+      const notificationMessage = document.getElementById(
+        "notificationMessage"
+      );
+      const insufficientBalanceDialog = document.getElementById(
+        "insufficientBalanceDialog"
+      );
+      const dialogClose = document.getElementById("dialogClose");
+      const dialogOkBtn = document.getElementById("dialogOkBtn");
+
+      // User data
+      let currentUser =
+        JSON.parse(localStorage.getItem("owobank_current_user")) || {};
+      let users = JSON.parse(localStorage.getItem("owobank_users")) || {};
+
+      // Initialize the page
+      function initPage() {
+        if (!currentUser.phone) {
+          window.location.href = "auth.html";
+          return;
+        }
+
+        // Update user data
+        currentUser = users[currentUser.phone] || currentUser;
+        localStorage.setItem(
+          "owobank_current_user",
+          JSON.stringify(currentUser)
+        );
+
+        // Set profile initial
+        const initials = currentUser.fullName
+          ? currentUser.fullName
+              .split(" ")
+              .map((n) => n[0])
+              .join("")
+          : "U";
+        profileInitial.textContent = initials.charAt(0);
+
+        // Set up event listeners
+        setupEventListeners();
+      }
+
+      // Check form validity
+      function checkFormValidity() {
+        const isAccountNameValid = accountNameInput.value.trim().length > 0;
+        const isAccountNumberValid =
+          accountNumberInput.value.length === 10 &&
+          /^\d+$/.test(accountNumberInput.value);
+        const isAmountValid = amountInput.value >= 100;
+
+        submitBtn.disabled = !(
+          isAccountNameValid &&
+          isAccountNumberValid &&
+          isAmountValid
+        );
+      }
+
+      // Show notification
+      function showNotification(title, message, type = "success") {
+        notificationTitle.textContent = title;
+        notificationMessage.textContent = message;
+
+        // Update icon based on type
+        notificationIcon.className = "notification-icon " + type;
+        if (type === "success") {
+          notificationIcon.innerHTML = '<i class="fas fa-check"></i>';
+        } else if (type === "error") {
+          notificationIcon.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+          notificationIcon.innerHTML = '<i class="fas fa-exclamation"></i>';
+        }
+
+        notification.classList.add("show");
+
+        // Hide after 4 seconds
+        setTimeout(() => {
+          notification.classList.remove("show");
+        }, 4000);
+      }
+
+      // Show insufficient balance dialog
+      function showInsufficientBalanceDialog() {
+        insufficientBalanceDialog.classList.add("open");
+      }
+
+      // Hide insufficient balance dialog
+      function hideInsufficientBalanceDialog() {
+        insufficientBalanceDialog.classList.remove("open");
+      }
+
+      // Format number with commas
+      function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      // Handle form submission
+      function handleSubmit(e) {
+        e.preventDefault();
+
+        const amount = parseFloat(amountInput.value);
+        const accountNumber = accountNumberInput.value;
+        const accountName = accountNameInput.value.trim();
+        const description = descriptionInput.value;
+
+        // Check minimum amount
+        if (amount < 100) {
+          showNotification("Error", "Minimum transfer amount is ₦100", "error");
+          return;
+        }
+
+        // Check user balance
+        if (currentUser.balance < amount) {
+          showInsufficientBalanceDialog();
+          return;
+        }
+
+        // Disable button during processing
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        // Simulate processing delay
+        setTimeout(() => {
+          // Update user balance in local storage
+          currentUser.balance -= amount;
+
+          // Add transaction to history
+          if (!currentUser.transactions) {
+            currentUser.transactions = [];
+          }
+
+          const transaction = {
+            id: generateTransactionId(),
+            type: "transfer",
+            amount: amount,
+            recipient: accountName,
+            recipientAccount: accountNumber,
+            description: description,
+            date: new Date().toISOString(),
+            status: "completed",
+          };
+
+          currentUser.transactions.unshift(transaction);
+
+          // Update storage
+          users[currentUser.phone] = currentUser;
+          localStorage.setItem(
+            "owobank_current_user",
+            JSON.stringify(currentUser)
+          );
+          localStorage.setItem("owobank_users", JSON.stringify(users));
+
+          showNotification(
+            "Success",
+            `Transfer of ₦${formatNumber(
+              amount
+            )} to ${accountName} was successful`
+          );
+
+          // Reset form after delay
+          setTimeout(() => {
+            transferForm.reset();
+            submitBtn.innerHTML = 'Continue <i class="fas fa-arrow-right"></i>';
+            checkFormValidity();
+          }, 2000);
+        }, 1500);
+      }
+
+      // Generate transaction ID
+      function generateTransactionId() {
+        return (
+          "TXN" +
+          Date.now() +
+          Math.random().toString(36).substr(2, 5).toUpperCase()
+        );
+      }
+
+      // Set up event listeners
+      function setupEventListeners() {
+        // Back button
+        backBtn.addEventListener("click", () => {
+          window.location.href = "home.html";
+        });
+
+        // Form inputs
+        accountNameInput.addEventListener("input", checkFormValidity);
+        accountNumberInput.addEventListener("input", checkFormValidity);
+        amountInput.addEventListener("input", checkFormValidity);
+
+        // Prevent non-numeric input in account number
+        accountNumberInput.addEventListener("keypress", (e) => {
+          if (
+            !/\d/.test(e.key) &&
+            !["Backspace", "Delete", "Tab", "Enter"].includes(e.key)
+          ) {
+            e.preventDefault();
+          }
+        });
+
+        // Amount buttons
+        amountBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const amount = btn.dataset.amount;
+            amountInput.value = amount;
+
+            // Add visual feedback
+            btn.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              btn.style.transform = "";
+            }, 150);
+
+            checkFormValidity();
+          });
+        });
+
+        // Amount input validation
+        amountInput.addEventListener("input", (e) => {
+          let value = e.target.value;
+
+          // Remove any non-numeric characters except decimal point
+          value = value.replace(/[^0-9.]/g, "");
+
+          // Ensure only one decimal point
+          const parts = value.split(".");
+          if (parts.length > 2) {
+            value = parts[0] + "." + parts.slice(1).join("");
+          }
+
+          // Limit decimal places to 2
+          if (parts[1] && parts[1].length > 2) {
+            value = parts[0] + "." + parts[1].slice(0, 2);
+          }
+
+          e.target.value = value;
+          checkFormValidity();
+        });
+
+        // Amount input formatting on blur
+        amountInput.addEventListener("blur", (e) => {
+          const value = parseFloat(e.target.value);
+          if (!isNaN(value)) {
+            e.target.value = value.toFixed(2);
+          }
+        });
+
+        // Form submission
+        transferForm.addEventListener("submit", handleSubmit);
+
+        // Dialog close buttons
+        dialogClose.addEventListener("click", hideInsufficientBalanceDialog);
+        dialogOkBtn.addEventListener("click", hideInsufficientBalanceDialog);
+
+        // Profile click
+        profileInitial.addEventListener("click", () => {
+          console.log("Profile clicked");
+        });
+      }
+
+      // Initialize the page when DOM is loaded
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPage);
+      } else {
+        initPage();
+      }
+    </script>
+  </body>
+</html>
