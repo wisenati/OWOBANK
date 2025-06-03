@@ -1,8 +1,9 @@
+
 {
   "name": "OwoBank",
   "short_name": "OwoBank",
   "description": "Digital Banking Redefined - Secure, fast and convenient banking services",
-  "start_url": "/index.html",
+  "start_url": "/auth.html",
   "display": "standalone",
   "background_color": "#6c5ce7",
   "theme_color": "#6c5ce7",
